@@ -3,7 +3,7 @@ import './styles.css';
 import Avatar from '../Avatar';
 import Logo from '../Logo';
 
-export default function Header() {
+export default function AppBar() {
     return (
         <header className="appbar">
             <Logo />
