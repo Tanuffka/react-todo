@@ -1,15 +1,13 @@
 import './styles.css';
 
 import Card from '../Card';
-import Title from '../Title';
+import PageTitle from '../PageTitle';
 
 export default function Content() {
     return (
         <div className="content">
-            <Card>
-                <Title />
-                ffffff
-            </Card>
-        </div>
+            <PageTitle />
+            <Card />
+        </div >
     );
 }

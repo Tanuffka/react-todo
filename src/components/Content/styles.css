@@ -1,6 +1,9 @@
 .content {
     width: 100vw;
+    max-width: 768px;
     padding: 40px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    margin: 0 auto;
 }
