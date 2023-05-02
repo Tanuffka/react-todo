@@ -2,9 +2,13 @@
     display: flex;
     position: fixed;
     width: 100vw;
-    height: 80px;
+    height: 60px;
     bottom: 0;
-    background-color: lightsteelblue;
     justify-content: center;
     align-items: center;
+    background-color: #ffffff;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 15px;
+    color: #8C8C8C;
 }
