@@ -20,6 +20,8 @@
 }
 
 .todocreator button {
+    display: flex;
+    align-items: center;
     height: 28px;
     padding: 0 17px;
     background-color: #58B9CE;
@@ -28,7 +30,6 @@
     border-radius: 2px;
     font-weight: 700;
     font-size: 12px;
-    line-height: 15px;
     color: #FFFFFF;
     cursor: pointer;
 }

@@ -9,7 +9,7 @@ export default function Content() {
         <div className="content">
             <PageTitle />
             <Card>
-            <TodoCreator/>
+                <TodoCreator />
             </Card>
         </div>
     );
