@@ -3,6 +3,7 @@ import './styles.css';
 import Card from '../Card';
 import PageTitle from '../PageTitle';
 import TodoCreator from '../TodoCreator';
+import TodoItem from '../TodoItem';
 
 export default function Content() {
     return (
@@ -10,6 +11,7 @@ export default function Content() {
             <PageTitle />
             <Card>
                 <TodoCreator />
+                <TodoItem />
             </Card>
         </div>
     );
