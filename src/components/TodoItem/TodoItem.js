@@ -7,7 +7,7 @@ export default function TodoItem({description, completed}) {
     return (
         <div className="todoitem">
             <div className="checkbox">
-                <input type="checkbox" checked={completed} readOnly/>
+                <input type="checkbox" checked={completed}/>
             </div>
             <div className="text">
                 <p title={description}>{description}</p>
