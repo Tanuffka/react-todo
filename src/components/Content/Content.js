@@ -4,40 +4,51 @@ import Card from '../Card';
 import PageTitle from '../PageTitle';
 import TodoCreator from '../TodoCreator';
 import TodoItem from '../TodoItem';
-import { useState } from 'react';
-
-const defaultTodos = [
-    {
-        id: 1,
-        description: 'Todo item #1, next will be #2',
-        completed: true,
-    },
-    {
-        id: 2,
-        description: 'Todo item #2, next will be #3',
-        completed: true,
-    },
-    {
-        id: 3,
-        description: 'Todo item #3, next will be #4',
-        completed: false,
-    },
-    {
-        id: 4,
-        description: 'Todo item #4, next will be #5',
-        completed: true,
-    },
-];
+import { useState, useEffect } from 'react';
 
 export default function Content() {
-    const [todos, setTodos] = useState(defaultTodos);
+    const [todos, setTodos] = useState([]);
+
+    // useEffect(() => {
+    //     fetch('./data/todos.json')
+    //         .then((response) => response.json())
+    //         .then(({ data }) => {
+    //             setTodos(data);
+    //         })
+    //         .catch((error) => {
+    //             console.error(error);
+    //         })
+    // }, []);
+
+    useEffect(() => {
+        const fetchTodos = async () => {
+            try {
+                const response = await fetch('./data/todos.json');
+                const { data } = await response.json();
+
+                setTodos(data);
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        fetchTodos();
+    }, []);
 
     return (
         <div className="content">
             <PageTitle />
             <Card>
                 <TodoCreator />
-                {todos.map((todo) => <TodoItem key={todo.id} description={todo.description} completed={todo.completed} />)}
+                {todos.map(todo => {
+                    return (
+                        <TodoItem
+                            key={todo.id}
+                            description={todo.description}
+                            completed={todo.completed}
+                        />
+                    );
+                })}
             </Card>
         </div>
     );
