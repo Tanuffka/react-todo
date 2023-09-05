@@ -34,7 +34,7 @@ export default function Content() {
     <div className="content">
       <PageTitle />
       <Card>
-        <TodoCreator onCreateTodo={handleCreateTodo} />
+        <TodoCreator onCreateTodo={handleCreateTodo}/>
         {todos.map((todo) => (
           <TodoItem
             key={todo.id}
