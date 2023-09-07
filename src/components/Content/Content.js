@@ -19,6 +19,11 @@ export default function Content() {
     setTodos([...todos, newTask]);
   };
 
+  const handleRemoveTodo = (id) => {
+    const filteredTodos = todos.filter((todo) => todo.id !== id);
+    setTodos(filteredTodos);
+  };
+
   useEffect(() => {
     fetch("data/todos.json")
       .then((data) => data.json())
@@ -34,12 +39,14 @@ export default function Content() {
     <div className="content">
       <PageTitle />
       <Card>
-        <TodoCreator onCreateTodo={handleCreateTodo}/>
+        <TodoCreator onCreateTodo={handleCreateTodo} />
         {todos.map((todo) => (
           <TodoItem
             key={todo.id}
+            id={todo.id}
             description={todo.description}
             completed={todo.completed}
+            onRemoveTodo={handleRemoveTodo}
           />
         ))}
       </Card>
