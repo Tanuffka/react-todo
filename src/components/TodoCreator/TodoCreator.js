@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import "./styles.css";
 
-export default function TodoCreator({ onCreateTodo }) {
+export default function TodoCreator({ onCreateTodo, onEditTodo}) {
   const [text, setText] = useState("");
 
   const handleChange = (event) => {
