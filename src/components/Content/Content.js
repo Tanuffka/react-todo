@@ -31,7 +31,6 @@ export default function Content() {
       }
       return todo;
     });
-    console.log(description);
     setTodos(editedTodos);
   };
 
