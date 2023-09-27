@@ -1,9 +1,10 @@
-import './styles.css';
+// import './styles.css';
+import { StyledFooter } from "./styled";
 
 const yearNow = new Date().getFullYear();
 
 export default function Footer() {
     return (
-        <footer className="footer">{yearNow} &copy; Tanuffka</footer>
+        <StyledFooter>{yearNow} &copy; Tanuffka</StyledFooter>
     );
 }

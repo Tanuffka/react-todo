@@ -1,6 +1,8 @@
-import "./styles.css";
 import Icon from "@mdi/react";
-import { mdiClose, mdiPencil } from "@mdi/js";
+import Checkbox from "@mui/material/Checkbox";
+import { mdiPencil, mdiDelete } from "@mdi/js";
+import IconButton from "@mui/material/IconButton";
+import { StyledBox, StyledDescription } from "./styled";
 
 export default function TodoItem({
   id,
@@ -24,19 +26,15 @@ export default function TodoItem({
   };
 
   return (
-    <div className="todoitem">
-      <div className="checkbox">
-        <input type="checkbox" checked={completed} readOnly />
-      </div>
-      <div className="text">
-        <p title={description}>{description}</p>
-      </div>
-      <button title="Edit" className="button" onClick={handleEdit}>
+    <StyledBox>
+      <Checkbox type="checkbox" checked={completed} />
+      <StyledDescription title={description}>{description}</StyledDescription>
+      <IconButton title="Edit" onClick={handleEdit}>
         <Icon path={mdiPencil} size={1} />
-      </button>
-      <button title="Delete" className="button" onClick={handleRemove}>
-        <Icon path={mdiClose} size={1} />
-      </button>
-    </div>
+      </IconButton>
+      <IconButton color="primary" title="Delete" onClick={handleRemove}>
+        <Icon path={mdiDelete} size={1} color="grey" />
+      </IconButton>
+    </StyledBox>
   );
 }

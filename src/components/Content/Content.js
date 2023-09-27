@@ -1,9 +1,8 @@
-import "./styles.css";
-
-import Card from "../Card";
 import PageTitle from "../PageTitle";
 import TodoCreator from "../TodoCreator";
 import TodoItem from "../TodoItem";
+import Container from "@mui/material/Container";
+import Paper from "@mui/material/Paper";
 import { useState, useEffect } from "react";
 
 export default function Content() {
@@ -46,9 +45,9 @@ export default function Content() {
   }, []);
 
   return (
-    <div className="content">
+    <Container maxWidth="md">
       <PageTitle />
-      <Card>
+      <Paper sx={{p: 4}}>
         <TodoCreator onCreateTodo={handleCreateTodo} />
         {todos.map((todo) => (
           <TodoItem
@@ -60,7 +59,7 @@ export default function Content() {
             onEditTodo={handleEditTodo}
           />
         ))}
-      </Card>
-    </div>
+      </Paper>
+    </Container>
   );
 }
