@@ -1,9 +1,0 @@
-.appbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100vw;
-    height: 80px;
-    padding: 0 25px;
-    background-color: #58B9CE;
-}

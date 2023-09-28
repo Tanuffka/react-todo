@@ -1,9 +1,12 @@
-import './styles.css';
+import { StyledFooter } from "./styled";
+import Typography from "@mui/material/Typography";
 
 const yearNow = new Date().getFullYear();
 
 export default function Footer() {
-    return (
-        <footer className="footer">{yearNow} &copy; Tanuffka</footer>
-    );
+  return (
+    <StyledFooter>
+      <Typography>{yearNow} &copy; Tanuffka</Typography>
+    </StyledFooter>
+  );
 }

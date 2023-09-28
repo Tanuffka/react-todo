@@ -1,7 +1,22 @@
-import './styles.css';
+import Typography from '@mui/material/Typography';
 
 export default function Logo() {
     return (
-        <h1 className="logo">Todo App</h1>
+        <Typography
+            variant="h6"
+            noWrap
+            component="a"
+            href="/"
+            sx={{
+              mr: 3,
+              display: { xs: 'none', md: 'flex' },
+              fontFamily: 'monospace',
+              fontWeight: 700,
+              color: 'inherit',
+              textDecoration: 'none',
+            }}
+          >
+            Todo list
+        </Typography>
     );
 }

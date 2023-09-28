@@ -1,14 +1,13 @@
 import { useState } from "react";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import Button from "@mui/material/Button";
 
-import "./styles.css";
-
-export default function TodoCreator({onCreateTodo}) {
+export default function TodoCreator({ onCreateTodo }) {
   const [text, setText] = useState("");
 
   const handleChange = (event) => {
     setText(event.target.value);
   };
-
 
   const handleCreate = () => {
     if (text.trim() === "") return;
@@ -18,15 +17,16 @@ export default function TodoCreator({onCreateTodo}) {
   };
 
   return (
-    <div className="todocreator">
-      <input 
-        type="text"
-        placeholder="Create your todo..."
-        value={text}
-        onChange={handleChange}
-      />
-      <button onClick={handleCreate}>Create</button>
-    </div>
+    <OutlinedInput
+      fullWidth
+      placeholder="Create your todo"
+      endAdornment={
+        <Button disableElevation variant="contained" onClick={handleCreate}>
+          Create
+        </Button>
+      }
+      value={text}
+      onChange={handleChange}
+    />
   );
-  
-  }
+}
