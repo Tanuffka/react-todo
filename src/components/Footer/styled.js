@@ -1,7 +1,8 @@
-import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
 import { styled } from "@mui/material/styles";
 
-export const StyledFooter = styled(Typography)`
+export const StyledFooter = styled(Box)`
+display: flex;
 position: fixed;
 width: 100vw;
 height: 60px;
