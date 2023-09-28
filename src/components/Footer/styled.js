@@ -2,7 +2,6 @@ import Typography from '@mui/material/Typography';
 import { styled } from "@mui/material/styles";
 
 export const StyledFooter = styled(Typography)`
-display: flex;
 position: fixed;
 width: 100vw;
 height: 60px;

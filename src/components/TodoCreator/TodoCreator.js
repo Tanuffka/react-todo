@@ -19,8 +19,6 @@ export default function TodoCreator({ onCreateTodo }) {
   return (
     <OutlinedInput
       fullWidth
-      type="text"
-      id="outlined-adornment-createTodo"
       placeholder="Create your todo"
       endAdornment={
         <Button disableElevation variant="contained" onClick={handleCreate}>
