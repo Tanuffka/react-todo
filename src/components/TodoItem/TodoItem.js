@@ -32,7 +32,7 @@ export default function TodoItem({
 
   return (
     <StyledBox>
-      <Tooltip title={completedTextHelper} placement="bottom">
+      <Tooltip title={completedTextHelper} placement="left">
         <Checkbox type="checkbox" checked={completed} />
       </Tooltip>
       <StyledDescription title={description}>{description}</StyledDescription>
