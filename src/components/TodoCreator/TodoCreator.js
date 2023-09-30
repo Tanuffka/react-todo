@@ -1,6 +1,6 @@
 import { useState } from "react";
-import OutlinedInput from "@mui/material/OutlinedInput";
 import Button from "@mui/material/Button";
+import { StyledOutlinedInput } from "./styled";
 
 export default function TodoCreator({ onCreateTodo }) {
   const [text, setText] = useState("");
@@ -17,7 +17,7 @@ export default function TodoCreator({ onCreateTodo }) {
   };
 
   return (
-    <OutlinedInput
+    <StyledOutlinedInput
       fullWidth
       placeholder="Create your todo"
       endAdornment={
