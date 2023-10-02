@@ -33,6 +33,16 @@ export default function Content() {
     setTodos(editedTodos);
   };
 
+  const handleChangeStatus = (id, completed) => {
+    const newStatus = todos.map((todo) => {
+      if (id === todo.id) {
+        return { ...todo, completed };
+      }
+      return todo;
+    });
+    setTodos(newStatus);
+  };
+
   useEffect(() => {
     fetch("data/todos.json")
       .then((data) => data.json())
@@ -47,7 +57,7 @@ export default function Content() {
   return (
     <Container maxWidth="md">
       <PageTitle />
-      <Paper sx={{p: 4}}>
+      <Paper sx={{ p: 4 }}>
         <TodoCreator onCreateTodo={handleCreateTodo} />
         {todos.map((todo) => (
           <TodoItem
@@ -57,6 +67,7 @@ export default function Content() {
             completed={todo.completed}
             onRemoveTodo={handleRemoveTodo}
             onEditTodo={handleEditTodo}
+            onChangeStatus={handleChangeStatus}
           />
         ))}
       </Paper>

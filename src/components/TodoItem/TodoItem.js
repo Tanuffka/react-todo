@@ -11,6 +11,7 @@ export default function TodoItem({
   completed,
   onRemoveTodo,
   onEditTodo,
+  onChangeStatus,
 }) {
   const handleRemove = () => {
     onRemoveTodo(id);
@@ -26,6 +27,12 @@ export default function TodoItem({
     onEditTodo(id, newDescription);
   };
 
+  const handleChange = () => {
+    onChangeStatus(id, !completed);
+  };
+
+  const descriptionTextDecoration = completed ? "line-through" : "none";
+
   const completedTextHelper = completed
     ? "Mark as uncompleted"
     : "Mark as completed";
@@ -33,9 +40,14 @@ export default function TodoItem({
   return (
     <StyledBox>
       <Tooltip title={completedTextHelper} placement="left">
-        <Checkbox type="checkbox" checked={completed} />
+        <Checkbox type="checkbox" checked={completed} onChange={handleChange} />
       </Tooltip>
-      <StyledDescription title={description}>{description}</StyledDescription>
+      <StyledDescription
+        title={description}
+        sx={{ textDecoration: descriptionTextDecoration }}
+      >
+        {description}
+      </StyledDescription>
       <Tooltip title="Edit" placement="bottom">
         <IconButton onClick={handleEdit}>
           <Icon path={mdiPencil} size={1} />
