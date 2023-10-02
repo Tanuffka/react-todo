@@ -34,13 +34,13 @@ export default function Content() {
   };
 
   const handleChangeStatus = (id, completed) => {
-    const ChangedTodos = todos.map((todo) => {
+    const editedTodos = todos.map((todo) => {
       if (id === todo.id) {
         return { ...todo, completed };
       }
       return todo;
     });
-    setTodos(ChangedTodos);
+    setTodos(editedTodos);
   };
 
   useEffect(() => {
