@@ -14,7 +14,7 @@ export default function TodoItem({
   onEditTodo,
   onChangeStatus,
 }) {
-  const [isHovering, setIsHovering] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
   const handleRemove = () => {
     onRemoveTodo(id);
@@ -34,12 +34,12 @@ export default function TodoItem({
     onChangeStatus(id, !completed);
   };
 
-  const handleMouseOver = () => {
-    setIsHovering(true);
+  const handleMouseEnter = () => {
+    setIsHovered(true);
   };
 
-  const handleMouseOut = () => {
-    setIsHovering(false);
+  const handleMouseLeave = () => {
+    setIsHovered(false);
   };
 
   const descriptionTextDecoration = completed ? "line-through" : "none";
@@ -49,7 +49,7 @@ export default function TodoItem({
     : "Mark as completed";
 
   return (
-    <StyledBox onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
+    <StyledBox onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       <Tooltip title={completedTextHelper} placement="left">
         <Checkbox type="checkbox" checked={completed} onChange={handleChange} />
       </Tooltip>
@@ -59,7 +59,7 @@ export default function TodoItem({
       >
         {description}
       </StyledDescription>
-      {isHovering && (
+      {isHovered && (
         <>
           <Tooltip title="Edit" placement="bottom">
             <IconButton onClick={handleEdit}>
