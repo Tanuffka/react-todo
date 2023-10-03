@@ -4,6 +4,7 @@ import { mdiPencil, mdiDelete } from "@mdi/js";
 import IconButton from "@mui/material/IconButton";
 import { StyledBox, StyledDescription } from "./styled";
 import Tooltip from "@mui/material/Tooltip";
+import { useState } from "react";
 
 export default function TodoItem({
   id,
@@ -13,6 +14,8 @@ export default function TodoItem({
   onEditTodo,
   onChangeStatus,
 }) {
+  const [isHovering, setIsHovering] = useState(false);
+
   const handleRemove = () => {
     onRemoveTodo(id);
   };
@@ -31,6 +34,14 @@ export default function TodoItem({
     onChangeStatus(id, !completed);
   };
 
+  const handleMouseOver = () => {
+    setIsHovering(true);
+  };
+
+  const handleMouseOut = () => {
+    setIsHovering(false);
+  };
+
   const descriptionTextDecoration = completed ? "line-through" : "none";
 
   const completedTextHelper = completed
@@ -38,7 +49,7 @@ export default function TodoItem({
     : "Mark as completed";
 
   return (
-    <StyledBox>
+    <StyledBox onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
       <Tooltip title={completedTextHelper} placement="left">
         <Checkbox type="checkbox" checked={completed} onChange={handleChange} />
       </Tooltip>
@@ -48,16 +59,20 @@ export default function TodoItem({
       >
         {description}
       </StyledDescription>
-      <Tooltip title="Edit" placement="bottom">
-        <IconButton onClick={handleEdit}>
-          <Icon path={mdiPencil} size={1} />
-        </IconButton>
-      </Tooltip>
-      <Tooltip title="Delete" placement="bottom">
-        <IconButton color="primary" onClick={handleRemove}>
-          <Icon path={mdiDelete} size={1} color="grey" />
-        </IconButton>
-      </Tooltip>
+      {isHovering && (
+        <>
+          <Tooltip title="Edit" placement="bottom">
+            <IconButton onClick={handleEdit}>
+              <Icon path={mdiPencil} size={1} />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title="Delete" placement="bottom">
+            <IconButton color="primary" onClick={handleRemove}>
+              <Icon path={mdiDelete} size={1} color="grey" />
+            </IconButton>
+          </Tooltip>
+        </>
+      )}
     </StyledBox>
   );
 }
