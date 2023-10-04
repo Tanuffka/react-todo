@@ -58,8 +58,8 @@ export default function TodoItem({
   };
 
   const handleEditClose = () => {
-    setOpen(false);
     setNewDescription(description);
+    setOpen(false);
   };
 
   const descriptionTextDecoration = completed ? "line-through" : "none";
