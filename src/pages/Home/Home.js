@@ -1,11 +1,9 @@
-import PageTitle from "../PageTitle";
-import TodoCreator from "../TodoCreator";
-import TodoItem from "../TodoItem";
-import Container from "@mui/material/Container";
-import Paper from "@mui/material/Paper";
+import TodoCreator from "./components/TodoCreator";
+import TodoItem from "./components/TodoItem";
 import { useState, useEffect } from "react";
+import PageContent from "../../components/PageContent";
 
-export default function Content() {
+export default function Home() {
   const [todos, setTodos] = useState([]);
 
   const handleCreateTodo = (description) => {
@@ -55,22 +53,19 @@ export default function Content() {
   }, []);
 
   return (
-    <Container maxWidth="md">
-      <PageTitle />
-      <Paper sx={{ p: 4 }}>
-        <TodoCreator onCreateTodo={handleCreateTodo} />
-        {todos.map((todo) => (
-          <TodoItem
-            key={todo.id}
-            id={todo.id}
-            description={todo.description}
-            completed={todo.completed}
-            onRemoveTodo={handleRemoveTodo}
-            onEditTodo={handleEditTodo}
-            onChangeStatus={handleChangeStatus}
-          />
-        ))}
-      </Paper>
-    </Container>
+    <PageContent title="Home">
+      <TodoCreator onCreateTodo={handleCreateTodo} />
+      {todos.map((todo) => (
+        <TodoItem
+          key={todo.id}
+          id={todo.id}
+          description={todo.description}
+          completed={todo.completed}
+          onRemoveTodo={handleRemoveTodo}
+          onEditTodo={handleEditTodo}
+          onChangeStatus={handleChangeStatus}
+        />
+      ))}
+    </PageContent>
   );
 }

@@ -7,8 +7,7 @@ import Typography from "@mui/material/Typography";
 import Icon from "@mdi/react";
 import { mdiAccountCircle } from "@mdi/js";
 import { useState } from "react";
-
-const settings = ["Profile", "Logout"];
+import { Link as RouterLink } from "react-router-dom";
 
 export default function Avatar() {
   const [anchorElUser, setAnchorElUser] = useState(null);
@@ -43,11 +42,12 @@ export default function Avatar() {
         open={Boolean(anchorElUser)}
         onClose={handleCloseUserMenu}
       >
-        {settings.map((setting) => (
-          <MenuItem key={setting} onClick={handleCloseUserMenu}>
-            <Typography textAlign="center">{setting}</Typography>
-          </MenuItem>
-        ))}
+        <MenuItem component={RouterLink} to="profile">
+          Profile
+        </MenuItem>
+        <MenuItem onClick={handleCloseUserMenu}>
+          <Typography textAlign="center">Logout</Typography>
+        </MenuItem>
       </Menu>
     </Box>
   );
