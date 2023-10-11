@@ -7,7 +7,7 @@ import Logo from "../Logo";
 export default function Header() {
   return (
     <AppBar position="static">
-      <Toolbar sx={{justifyContent: 'space-between'}}>
+      <Toolbar sx={{ justifyContent: "space-between" }}>
         <Logo />
         <Avatar />
       </Toolbar>

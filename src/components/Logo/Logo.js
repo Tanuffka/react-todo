@@ -1,22 +1,22 @@
-import Typography from '@mui/material/Typography';
+import Link from "@mui/material/Link";
+import { Link as RouterLink } from "react-router-dom";
 
 export default function Logo() {
-    return (
-        <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              mr: 3,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            Todo list
-        </Typography>
-    );
+  return (
+    <Link
+      component={RouterLink}
+      to="/"
+      sx={{
+        mr: 3,
+        display: { xs: "none", md: "flex" },
+        fontFamily: "monospace",
+        fontWeight: 700,
+        fontSize: 20,
+        color: "inherit",
+        textDecoration: "none",
+      }}
+    >
+      Todo list
+    </Link>
+  );
 }
