@@ -10,8 +10,8 @@ export default function Router() {
       <Route path="/">
         <Route index element={<Home />} />
         <Route path="profile" element={<Profile />} />
-        <Route path="*" element={<ErrorPage />} />
         <Route path="settings" element={<Settings />} />
+        <Route path="*" element={<ErrorPage />} />
       </Route>
     </Routes>
   );
