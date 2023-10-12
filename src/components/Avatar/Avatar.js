@@ -45,6 +45,9 @@ export default function Avatar() {
         <MenuItem component={RouterLink} to="profile">
           Profile
         </MenuItem>
+        <MenuItem component={RouterLink} to="settings">
+          Settings
+        </MenuItem>
         <MenuItem onClick={handleCloseUserMenu}>
           <Typography textAlign="center">Logout</Typography>
         </MenuItem>

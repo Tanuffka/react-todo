@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import Profile from "../pages/Profile";
 import Home from "../pages/Home";
 import ErrorPage from "../pages/ErrorPage";
+import Settings from "../pages/Settings";
 
 export default function Router() {
   return (
@@ -9,6 +10,7 @@ export default function Router() {
       <Route path="/">
         <Route index element={<Home />} />
         <Route path="profile" element={<Profile />} />
+        <Route path="settings" element={<Settings />} />
         <Route path="*" element={<ErrorPage />} />
       </Route>
     </Routes>
