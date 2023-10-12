@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import Profile from "../pages/Profile";
 import Home from "../pages/Home";
-import ErrorPage from "../pages/Error page/ErrorPage";
+import ErrorPage from "../pages/ErrorPage";
 
 export default function Router() {
   return (
