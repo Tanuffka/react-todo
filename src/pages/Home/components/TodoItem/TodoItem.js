@@ -11,21 +11,17 @@ import DialogTitle from "@mui/material/DialogTitle";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { useState } from "react";
+import { useTodoContext } from "../../context/Todo";
 
-export default function TodoItem({
-  id,
-  description,
-  completed,
-  onRemoveTodo,
-  onEditTodo,
-  onChangeStatus,
-}) {
+export default function TodoItem({ id, description, completed }) {
+  const { removeTodo, editTodo, changeTodoStatus } = useTodoContext();
+
   const [isHovered, setIsHovered] = useState(false);
   const [open, setOpen] = useState(false);
   const [newDescription, setNewDescription] = useState(description);
 
   const handleRemove = () => {
-    onRemoveTodo(id);
+    removeTodo(id);
   };
 
   const handleSave = () => {
@@ -33,12 +29,12 @@ export default function TodoItem({
       return;
     }
 
-    onEditTodo(id, newDescription);
+    editTodo(id, newDescription);
     setOpen(false);
   };
 
   const handleStatusChange = () => {
-    onChangeStatus(id, !completed);
+    changeTodoStatus(id, !completed);
   };
 
   const handleDescriptionChange = (event) => {

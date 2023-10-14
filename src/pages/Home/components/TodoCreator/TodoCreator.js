@@ -1,8 +1,11 @@
 import { useState } from "react";
 import Button from "@mui/material/Button";
 import { StyledOutlinedInput } from "./styled";
+import { useTodoContext } from "../../context/Todo";
 
-export default function TodoCreator({ onCreateTodo }) {
+export default function TodoCreator() {
+  const { createTodo } = useTodoContext();
+
   const [text, setText] = useState("");
 
   const handleChange = (event) => {
@@ -12,7 +15,7 @@ export default function TodoCreator({ onCreateTodo }) {
   const handleCreate = () => {
     if (text.trim() === "") return;
 
-    onCreateTodo(text);
+    createTodo(text);
     setText("");
   };
 
