@@ -2,7 +2,7 @@ import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 
 import Avatar from 'src/components/Avatar';
-import Logo from 'src//components/Logo';
+import Logo from 'src/components/Logo';
 
 export default function Header() {
   return (

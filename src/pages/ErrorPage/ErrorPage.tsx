@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 
-import PageContent from '../../components/PageContent';
+import PageContent from 'src/components/PageContent';
 
 export default function ErrorPage() {
   const navigate = useNavigate();
