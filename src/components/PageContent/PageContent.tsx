@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 import Container from '@mui/material/Container';
 import Paper from '@mui/material/Paper';
 
-import PageTitle from '../PageTitle';
+import PageTitle from 'src/components/PageTitle';
 
 interface Props {
   children: ReactNode;

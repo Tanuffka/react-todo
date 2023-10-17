@@ -48,7 +48,7 @@ export default function TodoItem({ id, description, completed }: Props) {
   };
 
   const handleDescriptionChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setNewDescription(event.currentTarget.value);
+    setNewDescription(event.target.value);
   };
 
   const handleMouseEnter = () => {

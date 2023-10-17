@@ -12,7 +12,7 @@ export default function TodoCreator() {
   const [text, setText] = useState('');
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setText(event.currentTarget.value);
+    setText(event.target.value);
   };
 
   const handleCreate = () => {
