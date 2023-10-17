@@ -2,10 +2,9 @@ import { Route, Routes } from 'react-router-dom';
 
 import ErrorPage from 'src/pages/ErrorPage';
 import Settings from 'src/pages/Settings';
-
-import Profile from '../pages/Profile';
-import Home from '../pages/Home';
-import TodoContextProvider from '../pages/Home/context/Todo';
+import Profile from 'src/pages/Profile';
+import Home from 'src/pages/Home';
+import TodoContextProvider from 'src/pages/Home/context/Todo';
 
 export default function Router() {
   return (
