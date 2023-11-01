@@ -12,7 +12,7 @@ interface Props {
 
 export default function PageContent({ children, title }: Props) {
   return (
-    <Container maxWidth="md" sx={{ mt: 10 }}>
+    <Container maxWidth="md" sx={{ pt: 10, pb: '140px' }}>
       {title && <PageTitle title={title} />}
       <Paper sx={{ p: 4 }}>{children}</Paper>
     </Container>

@@ -1,6 +1,14 @@
 module.exports = {
   root: true,
   parser: '@typescript-eslint/parser',
+  settings: {
+    react: {
+      version: 'detect',
+    },
+  },
+  env: {
+    node: true,
+  },
   plugins: [
     '@typescript-eslint',
     'eslint-plugin-import',
@@ -134,10 +142,5 @@ module.exports = {
     ],
     // jsx-a11y
     'jsx-a11y/media-has-caption': 0,
-  },
-  settings: {
-    react: {
-      version: 'detect',
-    },
   },
 };

@@ -11,7 +11,7 @@ interface TodoContextProps {
 }
 
 interface TodoSchema {
-  id: number;
+  _id: string;
   description: string;
   completed: boolean;
 }
@@ -19,9 +19,9 @@ interface TodoSchema {
 interface TodoContextResult {
   todos: TodoSchema[];
   createTodo: (description: string) => void;
-  removeTodo: (id: number) => void;
-  editTodo: (id: number, description: string) => void;
-  changeTodoStatus: (id: number, compledted: boolean) => void;
+  removeTodo: (id: string) => void;
+  editTodo: (id: string, description: string) => void;
+  changeTodoStatus: (id: string, compledted: boolean) => void;
 }
 
 const TodoContext = createContext<TodoContextResult>({
@@ -36,43 +36,88 @@ export default function TodoContextProvider({ children }: TodoContextProps) {
   const [todos, setTodos] = useState<TodoSchema[]>([]);
 
   const createTodo = (description: string) => {
-    const newTodo = {
-      description,
-      id: new Date().getTime(),
-      completed: false,
-    };
-
-    setTodos([...todos, newTodo]);
+    fetch('/api/tasks', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ description }),
+    })
+      .then((response) => response.json())
+      .then((task) => {
+        setTodos([task, ...todos]);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
-  const removeTodo = (id: number) => {
-    const filteredTodos = todos.filter((todo) => todo.id !== id);
-    setTodos(filteredTodos);
+  const removeTodo = (id: string) => {
+    fetch(`/api/tasks/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => response.json())
+      .then((task) => {
+        const filteredTodos = todos.filter((todo) => todo._id !== task._id);
+        setTodos(filteredTodos);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
-  const editTodo = (id: number, description: string) => {
-    const editedTodos = todos.map((todo) => {
-      if (id === todo.id) {
-        return { ...todo, description };
-      }
-      return todo;
-    });
-    setTodos(editedTodos);
+  const editTodo = (id: string, description: string) => {
+    fetch(`/api/tasks/${id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ description }),
+    })
+      .then((response) => response.json())
+      .then((task) => {
+        const updatedTodos = todos.map((todo) => {
+          if (todo._id === id) {
+            return task;
+          }
+          return todo;
+        });
+        setTodos(updatedTodos);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
-  const changeTodoStatus = (id: number, completed: boolean) => {
-    const editedTodos = todos.map((todo) => {
-      if (id === todo.id) {
-        return { ...todo, completed };
-      }
-      return todo;
-    });
-    setTodos(editedTodos);
+  const changeTodoStatus = (id: string, completed: boolean) => {
+    fetch(`/api/tasks/${id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ completed }),
+    })
+      .then((response) => response.json())
+      .then((task) => {
+        const editedTodos = todos.map((todo) => {
+          if (todo._id === id) {
+            return task;
+          }
+          return todo;
+        });
+        setTodos(editedTodos);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   useEffect(() => {
-    fetch('data/todos.json')
-      .then((data) => data.json())
+    fetch('/api/tasks')
+      .then((response) => response.json())
       .then((data) => {
         setTodos(data);
       })
