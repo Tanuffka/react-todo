@@ -18,7 +18,7 @@ import { useTodoContext } from '../../context/Todo';
 import { StyledBox, StyledDescription } from './styled';
 
 interface Props {
-  id: number;
+  id: string;
   description: string;
   completed: boolean;
 }

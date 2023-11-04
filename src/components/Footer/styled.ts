@@ -3,7 +3,7 @@ import { styled } from '@mui/material/styles';
 
 export const StyledFooter = styled(Box)`
   display: flex;
-  position: fixed;
+  position: absolute;
   width: 100vw;
   height: 60px;
   bottom: 0;

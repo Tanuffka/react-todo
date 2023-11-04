@@ -12,8 +12,8 @@ export default function Home() {
       <TodoCreator />
       {todos.map((todo) => (
         <TodoItem
-          key={todo.id}
-          id={todo.id}
+          key={todo._id}
+          id={todo._id}
           description={todo.description}
           completed={todo.completed}
         />

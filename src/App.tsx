@@ -14,7 +14,11 @@ export default function App() {
   return (
     <BrowserRouter>
       <Box
-        sx={{ backgroundColor: theme.palette.grey[100], minHeight: '100vh' }}
+        sx={{
+          backgroundColor: theme.palette.grey[100],
+          minHeight: '100vh',
+          position: 'relative',
+        }}
       >
         <CssBaseline />
         <Header />
