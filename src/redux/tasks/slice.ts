@@ -20,7 +20,7 @@ const initialState: TasksState = {
   inProgress: false,
 };
 
-const TasksSlice = createSlice({
+const tasksSlice = createSlice({
   name: 'task',
   initialState,
   reducers: {},
@@ -49,4 +49,4 @@ export const fetchTasks = createAsyncThunk('tasks/fetchTasks', async () => {
   }
 });
 
-export default TasksSlice.reducer;
+export default tasksSlice.reducer;
