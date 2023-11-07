@@ -2,6 +2,7 @@ import { ChangeEvent, useState } from 'react';
 
 import Icon from '@mdi/react';
 import { mdiDelete, mdiPencil } from '@mdi/js';
+import { useDispatch } from 'react-redux';
 
 import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
@@ -12,6 +13,9 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+
+import { AppDispatch } from 'src/redux/store';
+import { removeTask } from 'src/redux/tasks';
 
 import { useTodoContext } from '../../context/Todo';
 
@@ -24,14 +28,16 @@ interface Props {
 }
 
 export default function TodoItem({ id, description, completed }: Props) {
-  const { removeTodo, editTodo, changeTodoStatus } = useTodoContext();
+  const { editTodo, changeTodoStatus } = useTodoContext();
+  const dispatch = useDispatch<AppDispatch>();
 
   const [isHovered, setIsHovered] = useState(false);
   const [open, setOpen] = useState(false);
   const [newDescription, setNewDescription] = useState(description);
 
   const handleRemove = () => {
-    removeTodo(id);
+    // removeTodo(id);
+    dispatch(removeTask(id));
   };
 
   const handleSave = () => {
