@@ -1,21 +1,34 @@
+import { useEffect } from 'react';
+
+import { useDispatch, useSelector } from 'react-redux';
+
 import PageContent from 'src/components/PageContent';
+import { fetchTasks } from 'src/redux/tasks';
+import { AppDispatch, RootState } from 'src/redux/store';
 
 import TodoCreator from './components/TodoCreator';
 import TodoItem from './components/TodoItem';
-import { useTodoContext } from './context/Todo';
+// import { useTodoContext } from './context/Todo';
 
 export default function Home() {
-  const { todos } = useTodoContext();
+  // const { todos } = useTodoContext();
+  const dispatch = useDispatch<AppDispatch>();
+
+  const { tasks } = useSelector((state: RootState) => state.tasks);
+
+  useEffect(() => {
+    dispatch(fetchTasks());
+  }, [dispatch]);
 
   return (
     <PageContent title="Home">
       <TodoCreator />
-      {todos.map((todo) => (
+      {tasks.map((task) => (
         <TodoItem
-          key={todo._id}
-          id={todo._id}
-          description={todo.description}
-          completed={todo.completed}
+          key={task._id}
+          id={task._id}
+          description={task.description}
+          completed={task.completed}
         />
       ))}
     </PageContent>
