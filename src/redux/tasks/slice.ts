@@ -25,8 +25,13 @@ const tasksSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
+    // fetch tasks
     builder.addCase(fetchTasks.pending, (state) => {
       state.isFetching = true;
+    });
+
+    builder.addCase(fetchTasks.rejected, (state) => {
+      state.isFetching = false;
     });
 
     builder.addCase(
@@ -34,6 +39,23 @@ const tasksSlice = createSlice({
       (state, action: PayloadAction<TaskSchema[]>) => {
         state.isFetching = false;
         state.tasks = action.payload;
+      }
+    );
+
+    // create task
+    builder.addCase(createTask.pending, (state) => {
+      state.inProgress = true;
+    });
+
+    builder.addCase(createTask.rejected, (state) => {
+      state.inProgress = false;
+    });
+
+    builder.addCase(
+      createTask.fulfilled,
+      (state, action: PayloadAction<TaskSchema>) => {
+        state.inProgress = false;
+        state.tasks = [action.payload, ...state.tasks];
       }
     );
   },
@@ -48,5 +70,24 @@ export const fetchTasks = createAsyncThunk('tasks/fetchTasks', async () => {
     console.error(error);
   }
 });
+
+export const createTask = createAsyncThunk(
+  'tasks/createTask',
+  async (description: string) => {
+    try {
+      const response = await fetch('/api/tasks', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ description }),
+      });
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+);
 
 export default tasksSlice.reducer;
