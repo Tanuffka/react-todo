@@ -15,9 +15,9 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 
 import { AppDispatch } from 'src/redux/store';
-import { removeTask } from 'src/redux/tasks';
+import { editTask, removeTask } from 'src/redux/tasks';
 
-import { useTodoContext } from '../../context/Todo';
+// import { useTodoContext } from '../../context/Todo';
 
 import { StyledBox, StyledDescription } from './styled';
 
@@ -28,7 +28,7 @@ interface Props {
 }
 
 export default function TodoItem({ id, description, completed }: Props) {
-  const { editTodo, changeTodoStatus } = useTodoContext();
+  // const { editTodo, changeTodoStatus } = useTodoContext();
   const dispatch = useDispatch<AppDispatch>();
 
   const [isHovered, setIsHovered] = useState(false);
@@ -45,12 +45,16 @@ export default function TodoItem({ id, description, completed }: Props) {
       return;
     }
 
-    editTodo(id, newDescription);
+    // editTodo(id, newDescription);
+    dispatch(editTask({ _id: id, description: newDescription, completed }));
     setOpen(false);
   };
 
   const handleStatusChange = () => {
-    changeTodoStatus(id, !completed);
+    dispatch(
+      editTask({ _id: id, description: newDescription, completed: !completed })
+    );
+    // changeTodoStatus(id, !completed);
   };
 
   const handleDescriptionChange = (event: ChangeEvent<HTMLInputElement>) => {

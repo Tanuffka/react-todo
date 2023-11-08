@@ -78,6 +78,29 @@ const tasksSlice = createSlice({
         state.tasks = filteredTasks;
       }
     );
+
+    // edit task
+    builder.addCase(editTask.pending, (state) => {
+      state.inProgress = true;
+    });
+
+    builder.addCase(editTask.rejected, (state) => {
+      state.inProgress = false;
+    });
+
+    builder.addCase(
+      editTask.fulfilled,
+      (state, action: PayloadAction<TaskSchema>) => {
+        state.inProgress = false;
+        const updatedTasks = state.tasks.map((task) => {
+          if (task._id === action.payload._id) {
+            return action.payload;
+          }
+          return task;
+        });
+        state.tasks = updatedTasks;
+      }
+    );
   },
 });
 
@@ -126,6 +149,29 @@ export const removeTask = createAsyncThunk(
       } catch (error) {
         console.error(error);
       }
+    }
+  }
+);
+
+export const editTask = createAsyncThunk(
+  'tasks/editTask',
+  async ({
+    _id,
+    description,
+    completed,
+  }: Pick<TaskSchema, '_id' | 'description' | 'completed'>) => {
+    try {
+      const response = await fetch(`/api/tasks/${_id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ description, completed }),
+      });
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error(error);
     }
   }
 );
