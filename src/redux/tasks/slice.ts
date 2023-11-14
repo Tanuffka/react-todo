@@ -11,13 +11,17 @@ export interface TaskSchema {
 interface TasksState {
   tasks: TaskSchema[];
   isFetching: boolean;
-  inProgress: boolean;
+  isCreating: boolean;
+  isRemoving: boolean;
+  isEditing: boolean;
 }
 
 const initialState: TasksState = {
   tasks: [],
   isFetching: false,
-  inProgress: false,
+  isCreating: false,
+  isRemoving: false,
+  isEditing: false,
 };
 
 const tasksSlice = createSlice({
@@ -44,34 +48,34 @@ const tasksSlice = createSlice({
 
     // create task
     builder.addCase(createTask.pending, (state) => {
-      state.inProgress = true;
+      state.isCreating = true;
     });
 
     builder.addCase(createTask.rejected, (state) => {
-      state.inProgress = false;
+      state.isCreating = false;
     });
 
     builder.addCase(
       createTask.fulfilled,
       (state, action: PayloadAction<TaskSchema>) => {
-        state.inProgress = false;
+        state.isCreating = false;
         state.tasks = [action.payload, ...state.tasks];
       }
     );
 
     // remove Task
     builder.addCase(removeTask.pending, (state) => {
-      state.inProgress = true;
+      state.isRemoving = true;
     });
 
     builder.addCase(removeTask.rejected, (state) => {
-      state.inProgress = false;
+      state.isRemoving = false;
     });
 
     builder.addCase(
       removeTask.fulfilled,
       (state, action: PayloadAction<TaskSchema>) => {
-        state.inProgress = false;
+        state.isRemoving = false;
         const filteredTasks = state.tasks.filter(
           (task) => task._id !== action.payload._id
         );
@@ -81,17 +85,17 @@ const tasksSlice = createSlice({
 
     // edit task
     builder.addCase(editTask.pending, (state) => {
-      state.inProgress = true;
+      state.isEditing = true;
     });
 
     builder.addCase(editTask.rejected, (state) => {
-      state.inProgress = false;
+      state.isEditing = false;
     });
 
     builder.addCase(
       editTask.fulfilled,
       (state, action: PayloadAction<TaskSchema>) => {
-        state.inProgress = false;
+        state.isEditing = false;
         const updatedTasks = state.tasks.map((task) => {
           if (task._id === action.payload._id) {
             return action.payload;
