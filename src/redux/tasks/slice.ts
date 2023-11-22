@@ -12,16 +12,16 @@ interface TasksState {
   tasks: TaskSchema[];
   isFetching: boolean;
   isCreating: boolean;
-  isRemoving: boolean;
-  isEditing: boolean;
+  removingTaskId: string | null;
+  editingTaskId: string | null;
 }
 
 const initialState: TasksState = {
   tasks: [],
   isFetching: false,
   isCreating: false,
-  isRemoving: false,
-  isEditing: false,
+  removingTaskId: null,
+  editingTaskId: null,
 };
 
 const tasksSlice = createSlice({
@@ -64,44 +64,44 @@ const tasksSlice = createSlice({
     );
 
     // remove Task
-    builder.addCase(removeTask.pending, (state) => {
-      state.isRemoving = true;
+    builder.addCase(removeTask.pending, (state, action) => {
+      state.removingTaskId = action.meta.arg;
     });
 
     builder.addCase(removeTask.rejected, (state) => {
-      state.isRemoving = false;
+      state.removingTaskId = null;
     });
 
     builder.addCase(
       removeTask.fulfilled,
       (state, action: PayloadAction<TaskSchema>) => {
-        state.isRemoving = false;
         const filteredTasks = state.tasks.filter(
           (task) => task._id !== action.payload._id
         );
+        state.removingTaskId = null;
         state.tasks = filteredTasks;
       }
     );
 
     // edit task
-    builder.addCase(editTask.pending, (state) => {
-      state.isEditing = true;
+    builder.addCase(editTask.pending, (state, action) => {
+      state.editingTaskId = action.meta.arg._id;
     });
 
     builder.addCase(editTask.rejected, (state) => {
-      state.isEditing = false;
+      state.editingTaskId = null;
     });
 
     builder.addCase(
       editTask.fulfilled,
       (state, action: PayloadAction<TaskSchema>) => {
-        state.isEditing = false;
         const updatedTasks = state.tasks.map((task) => {
           if (task._id === action.payload._id) {
             return action.payload;
           }
           return task;
         });
+        state.editingTaskId = null;
         state.tasks = updatedTasks;
       }
     );
