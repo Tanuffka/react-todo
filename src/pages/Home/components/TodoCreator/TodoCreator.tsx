@@ -1,5 +1,3 @@
-// import { ChangeEvent, useState } from 'react';
-
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -27,25 +25,22 @@ export default function TodoCreator() {
   const {
     register,
     formState: { errors },
-    handleSubmit,
+    handleSubmit: handleRHFSubmit,
     resetField,
   } = useForm<FormData>();
 
-  const onSubmit = (data: FormData) => {
+  const handleSubmit = (data: FormData) => {
     dispatch(createTask(data.task)).then(() => {
       resetField('task');
     });
   };
 
-  // createTodo(text);
-  // console.log(errors.task);
-
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleRHFSubmit(handleSubmit)}>
       <Tooltip
+        disableHoverListener
         title={errors.task?.message}
         open={!!errors.task}
-        disableHoverListener={true}
       >
         <StyledOutlinedInput
           {...register('task', {
@@ -65,7 +60,6 @@ export default function TodoCreator() {
           fullWidth
           error={!!errors.task}
           type="text"
-          id="outlined-error"
           placeholder="Create your todo"
           endAdornment={
             <Button
