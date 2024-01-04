@@ -1,5 +1,6 @@
-import { ChangeEvent, useState } from 'react';
+import { useState } from 'react';
 
+import { useForm } from 'react-hook-form';
 import Icon from '@mdi/react';
 import { mdiDelete, mdiPencil } from '@mdi/js';
 import { useDispatch, useSelector } from 'react-redux';
@@ -24,6 +25,11 @@ import { editTask, removeTask } from 'src/redux/tasks';
 
 import { StyledBox, StyledDescription } from './styled';
 
+type FormData = {
+  description: string;
+  completed: boolean;
+};
+
 interface Props {
   id: string;
   description: string;
@@ -37,23 +43,33 @@ export default function TodoItem({ id, description, completed }: Props) {
     (state: RootState) => state.tasks
   );
 
+  const {
+    register,
+    formState: { errors },
+    handleSubmit: handleRHFSave,
+    resetField,
+    watch,
+  } = useForm<FormData>({
+    defaultValues: {
+      description,
+      completed,
+    },
+  });
+
+  const watchDescription = watch('description');
+
   const [isHovered, setIsHovered] = useState(false);
   const [open, setOpen] = useState(false);
-  const [newDescription, setNewDescription] = useState(description);
 
   const handleRemove = () => {
     // removeTodo(id);
     dispatch(removeTask(id));
   };
 
-  const handleSave = () => {
-    if (!newDescription) {
-      return;
-    }
-
+  const handleSave = (data: FormData) => {
     // editTodo(id, newDescription);
     dispatch(
-      editTask({ _id: id, description: newDescription, completed })
+      editTask({ _id: id, description: data.description, completed })
     ).then(() => {
       setOpen(false);
     });
@@ -61,13 +77,13 @@ export default function TodoItem({ id, description, completed }: Props) {
 
   const handleStatusChange = () => {
     dispatch(
-      editTask({ _id: id, description: newDescription, completed: !completed })
+      editTask({
+        _id: id,
+        description,
+        completed: !completed,
+      })
     );
     // changeTodoStatus(id, !completed);
-  };
-
-  const handleDescriptionChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setNewDescription(event.target.value);
   };
 
   const handleMouseEnter = () => {
@@ -83,15 +99,14 @@ export default function TodoItem({ id, description, completed }: Props) {
   };
 
   const handleEditCancel = () => {
-    setNewDescription(description);
     setOpen(false);
+    resetField('description');
   };
 
   const handleEditClose: DialogProps['onClose'] = (_event, reason) => {
     if (reason === 'backdropClick' || reason === 'escapeKeyDown') {
       return;
     }
-
     handleEditCancel();
   };
 
@@ -103,6 +118,7 @@ export default function TodoItem({ id, description, completed }: Props) {
 
   const isEditing = id === editingTaskId;
   const isDeleting = id === removingTaskId;
+  const isSaveDisabled = description === watchDescription;
 
   return (
     <StyledBox onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
@@ -131,44 +147,61 @@ export default function TodoItem({ id, description, completed }: Props) {
       </StyledDescription>
       <Dialog fullWidth open={open} onClose={handleEditClose}>
         <DialogTitle>Edit Todo</DialogTitle>
-        <DialogContent>
-          <TextField
-            fullWidth
-            value={newDescription}
-            variant="outlined"
-            onChange={handleDescriptionChange}
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button
-            variant="outlined"
-            disabled={isEditing}
-            onClick={handleEditCancel}
-          >
-            Cancel
-          </Button>
-          <Button
-            variant="contained"
-            disabled={isEditing}
-            sx={{
-              minWidth: 80,
-            }}
-            onClick={handleSave}
-          >
-            {isEditing && (
-              <CircularProgress
-                size={25}
-                sx={{
-                  color: 'white',
-                  display: 'flex',
-                  justifyContent: 'center',
-                  textAlign: 'center',
-                }}
-              />
-            )}
-            {!isEditing && <Typography>Save</Typography>}
-          </Button>
-        </DialogActions>
+        <form onSubmit={handleRHFSave(handleSave)}>
+          <DialogContent>
+            <TextField
+              {...register('description', {
+                required: {
+                  value: true,
+                  message: 'This field is required',
+                },
+                minLength: {
+                  value: 3,
+                  message: 'Should not be less than 3 symbols',
+                },
+                maxLength: {
+                  value: 30,
+                  message: 'Should not be larger than 30 symbols',
+                },
+              })}
+              fullWidth
+              type="text"
+              helperText={errors.description?.message}
+              variant="outlined"
+              error={!!errors.description}
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button
+              variant="outlined"
+              disabled={isEditing}
+              onClick={handleEditCancel}
+            >
+              Cancel
+            </Button>
+            <Button
+              type="submit"
+              variant="contained"
+              disabled={isEditing || isSaveDisabled}
+              sx={{
+                minWidth: 80,
+              }}
+            >
+              {isEditing && (
+                <CircularProgress
+                  size={25}
+                  sx={{
+                    color: 'white',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    textAlign: 'center',
+                  }}
+                />
+              )}
+              {!isEditing && <Typography>Save</Typography>}
+            </Button>
+          </DialogActions>
+        </form>
       </Dialog>
       {isHovered && (
         <>
