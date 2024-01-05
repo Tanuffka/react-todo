@@ -13,13 +13,12 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 
 import { AppDispatch, RootState } from 'src/redux/store';
 import { editTask, removeTask } from 'src/redux/tasks';
+import Button from 'src/components/Button';
 
 // import { useTodoContext } from '../../context/Todo';
 
@@ -180,6 +179,7 @@ export default function TodoItem({ id, description, completed }: Props) {
               Cancel
             </Button>
             <Button
+              loading={isEditing}
               type="submit"
               variant="contained"
               disabled={isEditing || isSaveDisabled}
@@ -187,18 +187,7 @@ export default function TodoItem({ id, description, completed }: Props) {
                 minWidth: 80,
               }}
             >
-              {isEditing && (
-                <CircularProgress
-                  size={25}
-                  sx={{
-                    color: 'white',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    textAlign: 'center',
-                  }}
-                />
-              )}
-              {!isEditing && <Typography>Save</Typography>}
+              Save
             </Button>
           </DialogActions>
         </form>
