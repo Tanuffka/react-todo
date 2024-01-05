@@ -27,12 +27,17 @@ export default function TodoCreator() {
     formState: { errors },
     handleSubmit: handleRHFSubmit,
     resetField,
+    clearErrors,
   } = useForm<FormData>();
 
   const handleSubmit = (data: FormData) => {
     dispatch(createTask(data.task)).then(() => {
       resetField('task');
     });
+  };
+
+  const handleFocusOut = () => {
+    clearErrors();
   };
 
   return (
@@ -85,6 +90,7 @@ export default function TodoCreator() {
               {!isCreating && <Typography>Create</Typography>}
             </Button>
           }
+          onBlur={handleFocusOut}
         />
       </Tooltip>
     </form>
