@@ -1,13 +1,11 @@
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import CircularProgress from '@mui/material/CircularProgress';
 import Tooltip from '@mui/material/Tooltip';
 
 import { AppDispatch, RootState } from 'src/redux/store';
 import { createTask } from 'src/redux/tasks';
+import Button from 'src/components/Button';
 
 // import { useTodoContext } from '../../context/Todo';
 
@@ -69,25 +67,15 @@ export default function TodoCreator() {
           endAdornment={
             <Button
               disableElevation
+              loading={isCreating}
               variant="contained"
               disabled={isCreating}
               type="submit"
+              sx={{
+                minWidth: 84,
+              }}
             >
-              {isCreating && (
-                <CircularProgress
-                  size={25}
-                  style={{
-                    minWidth: '60px',
-                  }}
-                  sx={{
-                    color: 'white',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    textAlign: 'center',
-                  }}
-                />
-              )}
-              {!isCreating && <Typography>Create</Typography>}
+              Create
             </Button>
           }
           onBlur={handleFocusOut}
