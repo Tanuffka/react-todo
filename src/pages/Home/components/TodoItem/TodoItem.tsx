@@ -5,7 +5,6 @@ import Icon from '@mdi/react';
 import { mdiDelete, mdiPencil } from '@mdi/js';
 import { useDispatch, useSelector } from 'react-redux';
 
-import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import Dialog, { DialogProps } from '@mui/material/Dialog';
@@ -19,6 +18,7 @@ import Box from '@mui/material/Box';
 import { AppDispatch, RootState } from 'src/redux/store';
 import { editTask, removeTask } from 'src/redux/tasks';
 import Button from 'src/components/Button';
+import Checkbox from 'src/components/Checkbox';
 
 // import { useTodoContext } from '../../context/Todo';
 
@@ -121,26 +121,13 @@ export default function TodoItem({ id, description, completed }: Props) {
 
   return (
     <StyledBox onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-      <Box
-        sx={{
-          height: 42,
-          width: 42,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        {isEditing && <CircularProgress size={20} thickness={5} />}
-        {!isEditing && (
-          <Tooltip title={completedTextHelper} placement="left">
-            <Checkbox
-              checked={completed}
-              disabled={isEditing || isDeleting}
-              onClick={handleStatusChange}
-            />
-          </Tooltip>
-        )}
-      </Box>
+      <Checkbox
+        tooltipPlacement="left"
+        tooltipTitle={completedTextHelper}
+        checked={completed}
+        disabled={isEditing || isDeleting}
+        onClick={handleStatusChange}
+      />
       <StyledDescription sx={{ textDecoration: descriptionTextDecoration }}>
         {description}
       </StyledDescription>
