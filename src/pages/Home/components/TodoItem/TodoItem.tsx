@@ -124,6 +124,7 @@ export default function TodoItem({ id, description, completed }: Props) {
       <Checkbox
         tooltipPlacement="left"
         tooltipTitle={completedTextHelper}
+        loading={isEditing}
         checked={completed}
         disabled={isEditing || isDeleting}
         onClick={handleStatusChange}
