@@ -13,6 +13,7 @@ export default function IconButton({
   loading,
   children,
   tooltipTitle,
+  tooltipPlacement = 'bottom',
   ...restProps
 }: Props) {
   return (
@@ -27,7 +28,7 @@ export default function IconButton({
     >
       {loading && <CircularProgress size={20} thickness={5} />}
       {!loading && (
-        <Tooltip title={tooltipTitle} placement={'bottom'}>
+        <Tooltip title={tooltipTitle} placement={tooltipPlacement}>
           <MuiIconButton {...restProps}>{children}</MuiIconButton>
         </Tooltip>
       )}
