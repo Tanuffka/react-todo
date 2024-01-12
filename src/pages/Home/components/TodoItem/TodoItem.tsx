@@ -5,20 +5,17 @@ import Icon from '@mdi/react';
 import { mdiDelete, mdiPencil } from '@mdi/js';
 import { useDispatch, useSelector } from 'react-redux';
 
-import IconButton from '@mui/material/IconButton';
-import Tooltip from '@mui/material/Tooltip';
 import Dialog, { DialogProps } from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import TextField from '@mui/material/TextField';
-import CircularProgress from '@mui/material/CircularProgress';
-import Box from '@mui/material/Box';
 
 import { AppDispatch, RootState } from 'src/redux/store';
 import { editTask, removeTask } from 'src/redux/tasks';
 import Button from 'src/components/Button';
 import Checkbox from 'src/components/Checkbox';
+import IconButton from 'src/components/IconButton';
 
 // import { useTodoContext } from '../../context/Todo';
 
@@ -182,33 +179,23 @@ export default function TodoItem({ id, description, completed }: Props) {
       </Dialog>
       {isHovered && (
         <>
-          <Tooltip title="Edit" placement="bottom">
-            <IconButton disabled={isDeleting} onClick={handleEditOpen}>
-              <Icon path={mdiPencil} size={1} />
-            </IconButton>
-          </Tooltip>
-          <Box
-            sx={{
-              height: 42,
-              width: 42,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
+          <IconButton
+            tooltipTitle="Edit"
+            loading={isEditing}
+            disabled={isDeleting}
+            onClick={handleEditOpen}
           >
-            {isDeleting && <CircularProgress size={20} thickness={5} />}
-            {!isDeleting && (
-              <Tooltip title="Delete" placement="bottom">
-                <IconButton
-                  color="primary"
-                  disabled={isDeleting}
-                  onClick={handleRemove}
-                >
-                  <Icon path={mdiDelete} size={1} color="grey" />
-                </IconButton>
-              </Tooltip>
-            )}
-          </Box>
+            <Icon path={mdiPencil} size={1} />
+          </IconButton>
+          <IconButton
+            tooltipTitle="Delete"
+            color="primary"
+            loading={isDeleting}
+            disabled={isDeleting}
+            onClick={handleRemove}
+          >
+            <Icon path={mdiDelete} size={1} color="grey" />
+          </IconButton>
         </>
       )}
     </StyledBox>
