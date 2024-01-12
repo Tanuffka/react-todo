@@ -181,7 +181,6 @@ export default function TodoItem({ id, description, completed }: Props) {
         <>
           <IconButton
             tooltipTitle="Edit"
-            tooltipPlacement="bottom"
             loading={isEditing}
             disabled={isDeleting}
             onClick={handleEditOpen}
@@ -190,7 +189,6 @@ export default function TodoItem({ id, description, completed }: Props) {
           </IconButton>
           <IconButton
             tooltipTitle="Delete"
-            tooltipPlacement="bottom"
             color="primary"
             loading={isDeleting}
             disabled={isDeleting}

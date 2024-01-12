@@ -6,34 +6,31 @@ import Box from '@mui/material/Box';
 interface Props extends IconButtonProps {
   loading?: boolean;
   tooltipTitle: TooltipProps['title'];
-  tooltipPlacement: TooltipProps['placement'];
+  tooltipPlacement?: TooltipProps['placement'];
 }
 
 export default function IconButton({
   loading,
   children,
   tooltipTitle,
-  tooltipPlacement,
   ...restProps
 }: Props) {
   return (
-    <>
-      <Box
-        sx={{
-          height: 42,
-          width: 42,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        {loading && <CircularProgress size={20} thickness={5} />}
-        {!loading && (
-          <Tooltip title={tooltipTitle} placement={tooltipPlacement}>
-            <MuiIconButton {...restProps}>{children}</MuiIconButton>
-          </Tooltip>
-        )}
-      </Box>
-    </>
+    <Box
+      sx={{
+        height: 42,
+        width: 42,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
+      {loading && <CircularProgress size={20} thickness={5} />}
+      {!loading && (
+        <Tooltip title={tooltipTitle} placement={'bottom'}>
+          <MuiIconButton {...restProps}>{children}</MuiIconButton>
+        </Tooltip>
+      )}
+    </Box>
   );
 }
